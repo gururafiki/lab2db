@@ -1,0 +1,100 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/site.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/mdb.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}" >
+</head>
+<body>
+<div class="col-lg-4">
+    <form action="/show" method="post">
+        {%  csrf_token %}
+        <select type="text" style="margin-top:0px;width:33%" class="btn btn-default waves-effect waves-light " name="table_name">
+            <option>languages</option>
+            <option>employees</option>
+            <option>employers</option>
+            <option>projects</option>
+        </select>
+        <button type="submit" style="margin-top:0px" class="btn btn-primary waves-effect waves-light " value="submit">Submit</button>
+    </form>
+    <br>
+    {% if table_name == 'tasks' %}
+        <form action="/delete" method="post">
+            {%  csrf_token %}
+            <select type="text" style="margin-top:0px;width:33%" class="btn btn-default waves-effect waves-light " name="row_id">
+                {% if rows %}
+                    {% for row in rows %}
+                        <option value="{{ row.0 }}">{{row.1}}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <button type="submit" style="margin-top:0px" class="btn btn-primary waves-effect waves-light " value="submit">Delete</button>
+        </form>
+        <br>
+        <form action="/create" method="post">
+            {%  csrf_token %}
+            <select type="text" style="margin-top:0px;width:33%" class="btn btn-default waves-effect waves-light " name="language_id">
+                {% if languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.0 }}">{{language.1}}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <select type="text" style="margin-top:0px;width:33%" class="btn btn-default waves-effect waves-light " name="employee_id">
+                {% if employees %}
+                    {% for employee in employees %}
+                        <option value="{{ employee.0 }}">{{employee.1}}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <select type="text" style="margin-top:0px;width:33%" class="btn btn-default waves-effect waves-light " name="employer_id">
+                {% if employers %}
+                    {% for employer in employers %}
+                        <option value="{{ employer.0 }}">{{employer.1}}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <button type="submit" style="margin-top:0px" class="btn btn-primary waves-effect waves-light " value="submit">Delete</button>
+        </form>
+        <form action="/update" method="post">
+            {%  csrf_token %}
+            <select type="text" style="margin-top:0px;width:33%" class="btn btn-default waves-effect waves-light " name="row_id">
+                {% if rows %}
+                    {% for row in rows %}
+                        <option value="{{ row.0 }}">{{row.1}}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <button type="submit" style="margin-top:0px" class="btn btn-primary waves-effect waves-light " value="submit">Delete</button>
+        </form>
+    {% endif %}
+</div>
+<div class="col-lg-8">
+    <table class="table table-striped table-bordered" style="width:100%">
+        <tr><pre style="text-align: center;">Current table : {{ table_name }}</pre></tr>
+        <thead>
+            <tr>
+                {% for col in cols %}
+                    <td>{{ col.0 }}</td>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if rows %}
+                {% for row in rows %}
+                    <tr>
+                    {% for data in row %}
+                        <td>{{ data }}</td>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+<footer>
+    <script src="{% static 'js/jquery/jquery.js' %}" ></script>
+    <script src="{% static 'js/bootstrap.js' %}" ></script>
+    <script src="{% static 'js/mdb.js' %}" ></script>
+</footer>
+</body>

@@ -1,0 +1,4 @@
+id,name,project_id,employee_id,employer_id,language_id,count_hours,difficulty,date,description
+1,"create selling system","jeweldreams","Marchenko","Ihnat","PHP",2,09/11/2017,"table Sells ,create check"
+2,"create template","lab2db","Marchenko","Petrashenko","Python",1,09/11/2017,"Create template for CRUD system"
+3,"create client interface template","fullcontrol","Marchenko","Vadim","PHP",1,09/11/2017,"Create template for CRUD system"
